@@ -1,0 +1,65 @@
+###
+POST http://localhost:4004/odata/v4/reportService/Customers HTTP/1.1
+content-type: application/json
+
+{
+    "name" : "Test Customer",
+    "address" : 
+}
+
+###
+POST http://localhost:4004/odata/v4/reportService/Products HTTP/1.1
+content-type: application/json
+
+{
+    "name" : "Test Customer",
+    "plant" : 1,
+    "cost" : 12.12,
+    "unitprice" : 33,
+    "currency" : "TL"
+}
+
+###
+
+POST http://localhost:4004/odata/v4/reportService/Plant HTTP/1.1
+content-type: application/json
+
+{
+    "description" : "Eskisehir Tulomsas"
+}
+
+###
+POST http://localhost:5000/odata/v4/reportService/Sales HTTP/1.1
+content-type: application/json
+Authorization: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAjO9ydFUkwI5Nv9aHpUdg\n8a0AvqhPodzrfWoA+BV4RXMVTEGEI+lfwhOHZTumEpgGTAX+r82RN1jK3br6qQzg\nsKEWjzGnET0Wrv3JQdRQXHWuENYy/rI0T2j/cc2m1cYCljPtg7iyQrhCMsXloHIE\neVtEtpfymeLwXnhw9+1oJVHARrxbBTpSvr7EU6W9jD6NcGMxkQ1bnB0IT58W28Ku\nabVKg+9s8d9cVeLlXeWRcAcv3kvGBuH46ZIwLmKw18zbsfshFsgzh4ntETG+y32v\nca7576kD+/zkPu7KrJEPNIN3uqnToM8Dw4vN4FlVBF8kVkcKLtKy87Aihz/GyGSL\n6QIDAQAB
+
+{
+    "salesNumber" : "8b54d848-f0f5-4091-9660-16ede1615be7",
+    "productID" : "d946ccb3-7c43-4381-b561-f2cb5a7580ff",
+    "customerID" : "8cc54d2c-83b7-420b-b894-be03e5d03801",
+    "quantity" : 2,
+    "totalPrice" : 50.00,
+    "date" : "2024-01-19"
+}
+
+###
+POST http://authentication.us10.hana.ondemand.com HTTP/1.1
+content-type: application/json
+
+{
+    "clientid": "sb-sales-tracking-app!t226923",
+    "clientsecret": "a178221b-b217-4472-8f82-a18a566aa351$xn30pqAbpRfVDEvxZcBxykfhVARtz-HpTocJWK7r1OA="
+}
+
+### Create new Sales
+POST http://localhost:4004/odata/v4/reportService/Sales HTTP/1.1
+content-type: application/json
+
+{
+    "salesNumber" : "41b56b01-c736-4b02-8203-a6dff9ad8649",
+    "productID" : "a6f3e420-2a9e-4dd2-8afc-d1316ad49d09",
+    "customerID" : "c053a04e-c7be-4271-b3e7-b99c117250e4",
+    "quantity" : 5,
+    "totalPrice" : 50.00,
+    "date" : "2024-01-19"  
+}

@@ -1,0 +1,118 @@
+_schema-version: "3.1"
+ID: SalesTracking
+description: A simple CAP project.
+version: 1.0.0
+modules:
+- name: SalesTracking-srv
+  type: nodejs
+  path: gen/srv
+  requires:
+  - name: SalesTracking-db
+  - name: SalesTracking-auth
+  provides:
+  - name: srv-api
+    properties:
+      srv-url: ${default-url}
+  parameters:
+    buildpack: nodejs_buildpack
+  build-parameters:
+    builder: npm
+- name: SalesTracking-db-deployer
+  type: hdb
+  path: gen/db
+  requires:
+  - name: SalesTracking-db
+  parameters:
+    buildpack: nodejs_buildpack
+- name: SalesTracking
+  type: approuter.nodejs
+  path: app/
+  requires:
+  - name: srv-api
+    group: destinations
+    properties:
+      forwardAuthToken: true
+      name: srv-api
+      url: ~{srv-url}
+  - name: SalesTracking-auth
+  - name: SalesTracking-destination-service
+    group: destinations
+    properties:
+      forwardAuthToken: false
+      name: ui5
+      url: https://ui5.sap.com
+  parameters:
+    disk-quota: 256M
+    keep-existing-routes: true
+    memory: 256M
+- name: SalesTracking-app-content
+  type: com.sap.application.content
+  path: .
+  requires:
+  - name: SalesTracking-repo-host
+    parameters:
+      content-target: true
+  build-parameters:
+    build-result: resources
+    requires:
+    - artifacts:
+      - comndbstestsalestrackingui.zip
+      name: comndbstestsalestrackingui
+      target-path: resources/
+- name: comndbstestsalestrackingui
+  type: html5
+  path: app/sales-tracking-ui
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+resources:
+- name: SalesTracking-db
+  type: com.sap.xs.hdi-container
+  parameters:
+    service: hanatrial
+    service-plan: hdi-shared
+- name: SalesTracking-auth
+  type: org.cloudfoundry.managed-service
+  parameters:
+    config:
+      tenant-mode: dedicated
+      xsappname: SalesTracking-${org}-${space}
+    path: ./xs-security.json
+    service: xsuaa
+    service-plan: application
+- name: SalesTracking-repo-host
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: html5-apps-repo
+    service-name: SalesTracking-html5-srv
+    service-plan: app-host
+- name: SalesTracking-destination-service
+  type: org.cloudfoundry.managed-service
+  parameters:
+    config:
+      HTML5Runtime_enabled: false
+      init_data:
+        instance:
+          destinations:
+          - Authentication: NoAuthentication
+            Name: ui5
+            ProxyType: Internet
+            Type: HTTP
+            URL: https://ui5.sap.com
+          existing_destinations_policy: update
+      version: 1.0.0
+    service: destination
+    service-name: SalesTracking-destination-service
+    service-plan: lite
+parameters:
+  deploy_mode: html5-repo
+  enable-parallel-deployments: true
+build-parameters:
+  before-all:
+  - builder: custom
+    commands:
+    - npx cds build --production
