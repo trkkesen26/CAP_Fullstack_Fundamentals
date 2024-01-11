@@ -1,9 +1,6 @@
 using {com.ndbs.salestracking as st} from '../db/schema';
 
-service ReportService @(
-        path    : 'reportService',
-        requires: 'authentication-user'
-) {
+service ReportService @(path: 'reportService') {
         @cds.search: {
                 totalPrice,
                 quantity,
@@ -13,25 +10,7 @@ service ReportService @(
 
         entity Products       as select from st.Products;
         entity Plant          as select from st.Plants;
-
-        entity Customers @(restrict: [
-                {
-                        grant: 'READ',
-                        to   : 'Normal User'
-                },
-                {
-                        grant: [
-                                'READ',
-                                'WRITE'
-                        ],
-                        to   : 'Admin'
-                },
-                {
-                        grant: ['*'],
-                        to   : 'God'
-                }
-        ])                    as select from st.Customers;
-
+        entity Customers      as select from st.Customers;
         entity ProductsPlants as projection on st.ProductsPlants;
 
         entity Report         as

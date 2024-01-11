@@ -1,9 +1,21 @@
 {
-  "xsappname": "sales-tracking-app",
+  "xsappname": "salestracking",
   "tenant-mode": "dedicated",
-  "oauth2-configuration": {
-    "redirect-uris": [
-      "http://localhost:5001/"
-    ]
-  }
+  "description": "Security profile of called application",
+  "scopes": [
+    {
+      "name": "uaa.user",
+      "description": "UAA"
+    }
+  ],
+  "role-templates": [
+    {
+      "name": "Token_Exchange",
+      "description": "UAA",
+      "scope-references": [
+        "uaa.user"
+      ]
+    }
+  ]
 }
+

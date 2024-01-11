@@ -1,0 +1,8 @@
+{
+  "authenticationMethod": "none",
+  "routes": [{
+    "source": "^/odata/v2/reportService/(.*)$",
+    "destination" : "ui5",
+    "csrfProteciton" : true
+  }]
+}

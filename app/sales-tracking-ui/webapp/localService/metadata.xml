@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+        <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema Namespace="ReportService" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <EntityContainer Name="EntityContainer">
+                <EntitySet Name="Sales" EntityType="ReportService.Sales">
+                    <NavigationPropertyBinding Path="toProductID" Target="Products"/>
+                    <NavigationPropertyBinding Path="toCustomerID" Target="Customers"/>
+                </EntitySet>
+                <EntitySet Name="Products" EntityType="ReportService.Products">
+                    <NavigationPropertyBinding Path="toPlants" Target="ProductsPlants"/>
+                    <NavigationPropertyBinding Path="toSales" Target="Sales"/>
+                </EntitySet>
+                <EntitySet Name="Plant" EntityType="ReportService.Plant">
+                    <NavigationPropertyBinding Path="toProducts" Target="ProductsPlants"/>
+                </EntitySet>
+                <EntitySet Name="Customers" EntityType="ReportService.Customers">
+                    <NavigationPropertyBinding Path="toSales" Target="Sales"/>
+                </EntitySet>
+                <EntitySet Name="ProductsPlants" EntityType="ReportService.ProductsPlants">
+                    <NavigationPropertyBinding Path="toProduct" Target="Products"/>
+                    <NavigationPropertyBinding Path="toPlant" Target="Plant"/>
+                </EntitySet>
+                <EntitySet Name="Report" EntityType="ReportService.Report"/>
+            </EntityContainer>
+            <EntityType Name="Sales">
+                <Key>
+                    <PropertyRef Name="salesNumber"/>
+                </Key>
+                <Property Name="salesNumber" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="productID" Type="Edm.Guid"/>
+                <NavigationProperty Name="toProductID" Type="Collection(ReportService.Products)">
+                    <OnDelete Action="Cascade"/>
+                </NavigationProperty>
+                <Property Name="customerID" Type="Edm.Guid"/>
+                <NavigationProperty Name="toCustomerID" Type="Collection(ReportService.Customers)"/>
+                <Property Name="quantity" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="totalPrice" Type="Edm.Decimal" Scale="2" Precision="13" Nullable="false"/>
+                <Property Name="date" Type="Edm.Date"/>
+            </EntityType>
+            <EntityType Name="Products">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="name" Type="Edm.String" MaxLength="50" Nullable="false"/>
+                <Property Name="plant" Type="Edm.Guid"/>
+                <NavigationProperty Name="toPlants" Type="Collection(ReportService.ProductsPlants)" Partner="toProduct"/>
+                <Property Name="cost" Type="Edm.Decimal" Scale="2" Precision="13" Nullable="false"/>
+                <Property Name="unitprice" Type="Edm.Decimal" Scale="2" Precision="13" Nullable="false"/>
+                <Property Name="currency" Type="Edm.String" MaxLength="4" Nullable="false"/>
+                <NavigationProperty Name="toSales" Type="ReportService.Sales"/>
+            </EntityType>
+            <EntityType Name="Plant">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="description" Type="Edm.String" MaxLength="100"/>
+                <NavigationProperty Name="toProducts" Type="Collection(ReportService.ProductsPlants)" Partner="toPlant"/>
+            </EntityType>
+            <EntityType Name="Customers">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="name" Type="Edm.String" MaxLength="50" Nullable="false"/>
+                <Property Name="address" Type="Edm.String" MaxLength="150"/>
+                <NavigationProperty Name="toSales" Type="ReportService.Sales"/>
+            </EntityType>
+            <EntityType Name="ProductsPlants">
+                <Property Name="productID" Type="Edm.Guid"/>
+                <Property Name="plantID" Type="Edm.Guid"/>
+                <NavigationProperty Name="toProduct" Type="ReportService.Products" Partner="toPlants">
+                    <ReferentialConstraint Property="productID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <NavigationProperty Name="toPlant" Type="ReportService.Plant" Partner="toProducts">
+                    <ReferentialConstraint Property="plantID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="Report">
+                <Property Name="ProductName" Type="Edm.String" MaxLength="50" Nullable="false"/>
+                <Property Name="CustomerName" Type="Edm.String" MaxLength="50" Nullable="false"/>
+                <Property Name="quantity" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="totalPrice" Type="Edm.Decimal" Scale="2" Precision="13" Nullable="false"/>
+                <Property Name="currency" Type="Edm.String" MaxLength="4" Nullable="false"/>
+                <Property Name="PlantName" Type="Edm.String" MaxLength="100"/>
+            </EntityType>
+            <Annotations Target="ReportService.Sales/salesNumber">
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+            </Annotations>
+            <Annotations Target="ReportService.Products/ID">
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+            </Annotations>
+            <Annotations Target="ReportService.Plant/ID">
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+            </Annotations>
+            <Annotations Target="ReportService.Customers/ID">
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+            </Annotations>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

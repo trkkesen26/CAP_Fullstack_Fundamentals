@@ -1,0 +1,176 @@
+<mvc:View
+    controllerName="com.ndbs.salestrackingui.controller.Homepage"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:su="sap.ui.table"
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns:svm="sap.ui.comp.smartvariants"
+    displayBlock="true"
+>
+    <f:ShellBar
+        title="Sales Report"
+        secondTitle="Homepage"
+        homeIcon="./img/report.png"
+    >
+        <f:menu>
+            <Menu>
+                <MenuItem
+                    text="Sales"
+                    icon="sap-icon://currency"
+                />
+                <MenuItem
+                    text="Products"
+                    icon="sap-icon://add-product"
+                />
+                <MenuItem
+                    text="Plant"
+                    icon="sap-icon://factory"
+                />
+                <MenuItem
+                    text="Customers"
+                    icon="sap-icon://customer"
+                />
+                <MenuItem
+                    text="Products"
+                    icon="sap-icon://add-product"
+                />
+            </Menu>
+        </f:menu>
+        <f:profile>
+            <Avatar initials="UI" />
+        </f:profile>
+    </f:ShellBar>
+    <f:DynamicPage headerExpanded="true">
+        <f:title>
+            <f:DynamicPageTitle>
+                <f:expandedContent>
+                    <Label
+                        id="expandedLabel"
+                        text="No filters active"
+                    />
+                </f:expandedContent>
+                <f:snappedContent>
+                    <Label
+                        id="snappedLabel"
+                        text="No filters active"
+                    />
+                </f:snappedContent>
+            </f:DynamicPageTitle>
+        </f:title>
+        <f:header>
+            <f:DynamicPageHeader>
+                <f:content>
+                    <fb:FilterBar
+                        id="fbSalesReport"
+                        persistencyKey="myPersKey"
+                        useToolbar="false"
+                        search=".onSearch"
+                        filterChange=".onFilterChange"
+                        afterVariantLoad=".onAfterVariantLoad"
+                    >
+                        <fb:filterGroupItems>
+                            <fb:FilterGroupItem
+                                name="ProductName"
+                                label="Product Name"
+                                groupName="Group1"
+                                visibleInFilterBar="true"
+                            >
+                                <fb:control>
+                                    <MultiComboBox
+                                        name="ProductName"
+                                        selectionChange=".onSelectionChange"
+                                        items="{
+												path: '/Products',
+												templateShareable: true
+											}"
+                                    >
+                                        <core:Item key="{name}" text="{name}" />
+                                    </MultiComboBox>
+                                </fb:control>
+                            </fb:FilterGroupItem>
+                            <fb:FilterGroupItem
+                                name="CustomerName"
+                                label="Customer Name"
+                                groupName="Group1"
+                                visibleInFilterBar="true"
+                            >
+                                <fb:control>
+                                    <MultiComboBox
+                                        name="CustomerName"
+                                        selectionChange=".onSelectionChange"
+                                        items="{
+												path: '/Customers',
+												templateShareable: true
+											}"
+                                    >
+                                        <core:Item key="{name}" text="{name}" />
+                                    </MultiComboBox>
+                                </fb:control>
+                            </fb:FilterGroupItem>
+                            <fb:FilterGroupItem
+                                name="PlantName"
+                                label="Plant Name"
+                                groupName="Group1"
+                                visibleInFilterBar="true"
+                            >
+                                <fb:control>
+                                    <MultiComboBox
+                                        name="PlantName"
+                                        selectionChange=".onSelectionChange"
+                                        items="{
+												path: '/Plant',
+												templateShareable: true
+											}"
+                                    >
+                                        <core:Item key="{description}" text="{description}" />
+                                    </MultiComboBox>
+                                </fb:control>
+                            </fb:FilterGroupItem>
+                        </fb:filterGroupItems>
+                    </fb:FilterBar>
+                </f:content>
+            </f:DynamicPageHeader>
+        </f:header>
+        <f:content>
+            <Table
+                id="tblSalesReport"
+                items="{/Report}"
+            >
+                <columns>
+                    <Column>
+                        <Text text="Product" />
+                    </Column>
+                    <Column>
+                        <Text text="Customer" />
+                    </Column>
+                    <Column>
+                        <Text text="Quantity" />
+                    </Column>
+                    <Column>
+                        <Text text="Price" />
+                    </Column>
+                    <Column>
+                        <Text text="Currency" />
+                    </Column>
+                    <Column>
+                        <Text text="Plant" />
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem>
+                        <cells>
+                            <Text text="{ProductName}" />
+                            <Text text="{CustomerName}" />
+                            <Text text="{quantity}" />
+                            <Text text="{totalPrice}" />
+                            <Text text="{currency}" />
+                            <Text text="{PlantName}" />
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </f:content>
+    </f:DynamicPage>
+</mvc:View>
