@@ -1,0 +1,58 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:l="sap.ui.layout"
+>
+    <Popover
+        id="myPopover"
+        title="Add New Customer"
+        class="sapUiResponsivePadding--header sapUiResponsivePadding--footer"
+        placement="Bottom"
+    >
+        <l:VerticalLayout
+            class="sapUiContentPadding"
+            width="400px"
+        >
+            <Label
+                text="UUID"
+                labelFor="inpUUID"
+            />
+            <FlexBox>
+                <Input
+                    width="335px"
+                    id="inpUUID"
+                    required="true"
+                />
+                <Button
+                    icon="sap-icon://key"
+                    press=".onCreateUUID"
+                />
+            </FlexBox>
+            <Label
+                text="Name"
+                labelFor="inpNameCustomer"
+            />
+            <Input
+                id="inpNameCustomer"
+                required="true"
+            />
+            <Label
+                text="Address"
+                labelFor="inpAddress"
+            />
+            <Input id="inpAddress" />
+        </l:VerticalLayout>
+        <footer>
+            <OverflowToolbar>
+                <ToolbarSpacer />
+                <Button
+                    id="btnAddNew"
+                    text="Add"
+                    press=".onCreateRequest"
+                    ariaHasPopup="Dialog"
+                />
+                <ToolbarSpacer />
+            </OverflowToolbar>
+        </footer>
+    </Popover>
+</core:FragmentDefinition>

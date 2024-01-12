@@ -1,0 +1,42 @@
+<mvc:View
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    controllerName="com.ndbs.salestrackingui.controller.PlantPage"
+>
+    <f:ShellBar
+        title="Plants"
+        secondTitle="Managing Plants Information"
+        homeIcon="./img/NTT-DATA-logo-new_Color-1.png"
+        homeIconPressed="onNavToView('RouteHomepage')"
+    >
+        <f:menu>
+            <Menu>
+                <MenuItem
+                    text="Home Page"
+                    icon="sap-icon://currency"
+                    press="onNavToView('RouteHomepage')"
+                />
+                <MenuItem
+                    text="Products"
+                    icon="sap-icon://add-product"
+                    press="onNavToView('RouteProductPage')"
+                />
+                <MenuItem
+                    text="Sales"
+                    icon="sap-icon://factory"
+                    press="onNavToView('RouteSalePage')"
+                />
+                <MenuItem
+                    text="Customers"
+                    icon="sap-icon://customer"
+                    press="onNavToView('RouteCustomerPage')"
+                />
+            </Menu>
+        </f:menu>
+        <f:profile>
+            <Avatar initials="UI" />
+        </f:profile>
+    </f:ShellBar>
+</mvc:View>

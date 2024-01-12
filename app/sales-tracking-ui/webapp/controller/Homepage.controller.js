@@ -27,13 +27,10 @@ sap.ui.define([
                 this.oFilterBar.registerFetchData(this.fetchData);
                 this.oFilterBar.registerApplyData(this.applyData);
                 this.oFilterBar.registerGetFiltersWithValues(this.getFiltersWithValues);
-    
-                var oPersInfo = new PersonalizableInfo({
-                    type: "filterBar",
-                    keyName: "persistencyKey",
-                    dataSource: "",
-                    control: this.oFilterBar
-                });
+            },
+
+            onNavToView : function (oEvent) {
+                this.getOwnerComponent().getRouter().navTo(oEvent);
             },
     
             onExit: function() {

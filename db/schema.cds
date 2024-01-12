@@ -15,8 +15,8 @@ entity Plants {
 }
 
 entity ProductsPlants {
-    productID : Products:ID;
-    plantID   : Plants:ID;
+    KEY productID : Products:ID;
+    KEY plantID   : Plants:ID;
     toProduct : Association to one Products
                     on toProduct.ID = $self.productID;
     toPlant   : Association to one Plants

@@ -12,29 +12,29 @@
     <f:ShellBar
         title="Sales Report"
         secondTitle="Homepage"
-        homeIcon="./img/report.png"
+        homeIcon="./img/NTT-DATA-logo-new_Color-1.png"
     >
         <f:menu>
             <Menu>
                 <MenuItem
                     text="Sales"
                     icon="sap-icon://currency"
+                    press="onNavToView('RouteSalePage')"
                 />
                 <MenuItem
                     text="Products"
                     icon="sap-icon://add-product"
+                    press="onNavToView('RouteProductPage')"
                 />
                 <MenuItem
                     text="Plant"
                     icon="sap-icon://factory"
+                    press="onNavToView('RoutePlantPage')"
                 />
                 <MenuItem
                     text="Customers"
                     icon="sap-icon://customer"
-                />
-                <MenuItem
-                    text="Products"
-                    icon="sap-icon://add-product"
+                    press="onNavToView('RouteCustomerPage')"
                 />
             </Menu>
         </f:menu>

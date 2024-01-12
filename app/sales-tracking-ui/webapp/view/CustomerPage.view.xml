@@ -1,0 +1,122 @@
+<mvc:View
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:l="sap.ui.layout"
+    controllerName="com.ndbs.salestrackingui.controller.CustomerPage"
+>
+    <Page
+        id="Customers"
+        showHeader="false"
+    >
+        <f:ShellBar
+            title="Customers"
+            secondTitle="Managing Customers Information"
+            homeIcon="./img/NTT-DATA-logo-new_Color-1.png"
+            homeIconPressed="onNavToView('RouteHomepage')"
+        >
+            <f:menu>
+                <Menu>
+                    <MenuItem
+                        text="Home Page"
+                        icon="sap-icon://currency"
+                        press="onNavToView('RouteHomepage')"
+                    />
+                    <MenuItem
+                        text="Sales"
+                        icon="sap-icon://customer"
+                        press="onNavToView('RouteSalePage')"
+                    />
+                    <MenuItem
+                        text="Products"
+                        icon="sap-icon://add-product"
+                        press="onNavToView('RouteProductPage')"
+                    />
+                    <MenuItem
+                        text="Plants"
+                        icon="sap-icon://factory"
+                        press="onNavToView('RoutePlantPage')"
+                    />
+                </Menu>
+            </f:menu>
+            <f:profile>
+                <Avatar initials="UI" />
+            </f:profile>
+        </f:ShellBar>
+        <Table
+            id="tblCustomer"
+            inset="false"
+            mode="SingleSelectMaster"
+            items="{
+			path: '/Customers',
+			sorter: {
+				path: 'name'
+			}
+		}"
+        >
+            <headerToolbar>
+                <OverflowToolbar>
+                    <content>
+                        <Title
+                            text="Customers"
+                            level="H2"
+                        />
+                    </content>
+                </OverflowToolbar>
+            </headerToolbar>
+            <infoToolbar>
+                <OverflowToolbar>
+                    <Label text="Recorded Customers" />
+                    <ToolbarSpacer />
+                    <Button
+                        id="btnCreateRecord"
+                        text="New Record"
+                        press="onCreate"
+                        icon="sap-icon://add"
+                    />
+                    <Button
+                        id="btnUpdateRecord"
+                        text="Update"
+                        press="onUpdate"
+                        icon="sap-icon://edit"
+                    />
+                    <Button
+                        text="Delete"
+                        press="onDelete"
+                        icon="sap-icon://delete"
+                    />
+                </OverflowToolbar>
+            </infoToolbar>
+            <columns>
+                <Column width="36em">
+                    <Text text="Customer ID" />
+                </Column>
+                <Column
+                    minScreenWidth="Tablet"
+                    demandPopin="true"
+                >
+                    <Text text="Name" />
+                </Column>
+                <Column
+                    minScreenWidth="Desktop"
+                    demandPopin="true"
+                >
+                    <Text text="Address" />
+                </Column>
+            </columns>
+            <items>
+                <ColumnListItem vAlign="Middle">
+                    <cells>
+                        <ObjectIdentifier
+                            title="UUID"
+                            text="{ID}"
+                        />
+                        <Text text="{name}" />
+                        <Text text="{address}" />
+                    </cells>
+                </ColumnListItem>
+            </items>
+        </Table>
+    </Page>
+</mvc:View>

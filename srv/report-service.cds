@@ -22,6 +22,7 @@ service ReportService @(path: 'reportService') {
                 left join Plant
                         on Products.plant = Plant.ID
                 {
+                        KEY Sales.salesNumber as salesNumber,
                         Products.name     as ProductName,
                         Customers.name    as CustomerName,
                         Sales.quantity,

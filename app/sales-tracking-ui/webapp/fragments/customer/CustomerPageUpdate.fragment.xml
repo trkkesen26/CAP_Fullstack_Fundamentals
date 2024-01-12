@@ -1,0 +1,58 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:l="sap.ui.layout"
+>
+    <Popover
+        id="updatePopover"
+        title="Update Customer Information"
+        class="sapUiResponsivePadding--header sapUiResponsivePadding--footer"
+        placement="Bottom"
+    >
+        <l:VerticalLayout
+            class="sapUiContentPadding"
+            width="400px"
+        >
+            <Label
+                text="UUID"
+                labelFor="inpUUIDUpdate"
+            />
+            <Input
+                width="335px"
+                id="inpUUIDUpdate"
+                value="{globalJSONModel>/ID}"
+                enabled="false"
+                valueLiveUpdate="true"
+            />
+            <Label
+                text="Name"
+                labelFor="inpNameCustomerUpdate"
+            />
+            <Input
+                id="inpNameCustomerUpdate"
+                required="true"
+                value="{globalJSONModel>/name}"
+                valueLiveUpdate="true"
+            />
+            <Label
+                text="Address"
+                labelFor="inpAddressUpdate"
+            />
+            <Input id="inpAddressUpdate"
+            value="{globalJSONModel>/address}" 
+            valueLiveUpdate="true"/>
+        </l:VerticalLayout>
+        <footer>
+            <OverflowToolbar>
+                <ToolbarSpacer />
+                <Button
+                    id="btnUpdate"
+                    text="Update"
+                    press=".onUpdateRequest"
+                    ariaHasPopup="Dialog"
+                />
+                <ToolbarSpacer />
+            </OverflowToolbar>
+        </footer>
+    </Popover>
+</core:FragmentDefinition>

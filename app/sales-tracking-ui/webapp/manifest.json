@@ -17,12 +17,12 @@
     },
     "dataSources": {
       "mainService": {
-        "uri": "/odata/v4/reportService/",
+        "uri": "/odata/v2/reportService/",
         "type": "OData",
         "settings": {
           "annotations": [],
           "localUri": "localService/metadata.xml",
-          "odataVersion": "4.0"
+          "odataVersion": "2.0"
         }
       }
     }
@@ -71,13 +71,7 @@
       },
       "": {
         "dataSource": "mainService",
-        "preload": true,
-        "settings": {
-          "synchronizationMode": "None",
-          "operationMode": "Server",
-          "autoExpandSelect": true,
-          "earlyRequests": true
-        }
+        "preload": true
       }
     },
     "resources": {
@@ -100,9 +94,37 @@
       "routes": [
         {
           "name": "RouteHomepage",
-          "pattern": ":?query:",
+          "pattern": "",
           "target": [
             "TargetHomepage"
+          ]
+        },
+        {
+          "name": "RouteSalePage",
+          "pattern": "Sales",
+          "target": [
+            "TargetSalePage"
+          ]
+        },
+        {
+          "name": "RouteProductPage",
+          "pattern": "Products",
+          "target": [
+            "TargetProductPage"
+          ]
+        },
+        {
+          "name": "RouteCustomerPage",
+          "pattern": "Customers",
+          "target": [
+            "TargetCustomerPage"
+          ]
+        },
+        {
+          "name": "RoutePlantPage",
+          "pattern": "Plants",
+          "target": [
+            "TargetPlantPage"
           ]
         }
       ],
@@ -113,6 +135,34 @@
           "clearControlAggregation": false,
           "viewId": "Homepage",
           "viewName": "Homepage"
+        },
+        "TargetSalePage": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "SalePage",
+          "viewName": "SalePage"
+        },
+        "TargetProductPage": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "ProductPage",
+          "viewName": "ProductPage"
+        },
+        "TargetCustomerPage": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "CustomerPage",
+          "viewName": "CustomerPage"
+        },
+        "TargetPlantPage": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "PlantPage",
+          "viewName": "PlantPage"
         }
       }
     },
