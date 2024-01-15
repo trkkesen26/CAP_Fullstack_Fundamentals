@@ -1,0 +1,57 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:smartForm="sap.ui.comp.smartform"
+    xmlns:smartField="sap.ui.comp.smartfield"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:upload="sap.m.upload"
+    xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+>
+    <Dialog
+        id="diaUpdatePlant"
+        showHeader="false"
+        contentWidth="45rem"
+        escapeHandler=".preventCloseByEscape"
+    >
+        <content>
+            <f:SimpleForm
+                id="sfPlantUpdate"
+                editable="true"
+                layout="ResponsiveGridLayout"
+                title="Plants"
+                labelSpanXL="3"
+                labelSpanL="3"
+                labelSpanM="3"
+                labelSpanS="12"
+                adjustLabelSpan="false"
+                emptySpanXL="4"
+                emptySpanL="4"
+                emptySpanM="4"
+                emptySpanS="0"
+                columnsXL="1"
+                columnsL="1"
+                columnsM="1"
+                singleContainerFullSize="false"
+            >
+                <f:content>
+                    <Label text="Description"/>
+                    <Input value="{description}"/>
+                </f:content>
+            </f:SimpleForm>
+        </content>
+        <beginButton>
+            <Button
+                text="Save"
+                icon="sap-icon://add"
+                press="onSavePlant"
+            />
+        </beginButton>
+        <endButton>
+            <Button
+                text="Cancel"
+                icon="sap-icon://cancel"
+                press="onCloseDialog('_oUpdatePersonnelDialog')"
+            />
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>
